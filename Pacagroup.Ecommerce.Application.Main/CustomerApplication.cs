@@ -13,11 +13,13 @@ public class CustomerApplication: ICustumerApplication
 {
     private readonly ICustomersDomain _customerDomain;
     private readonly IMapper _mapper;
+    private readonly IAppLogger<CustomerApplication> logger;
 
-    public CustomerApplication(ICustomersDomain customersDomain, IMapper mapper)
+    public CustomerApplication(ICustomersDomain customersDomain, IMapper mapper, IAppLogger<CustomerApplication> logger)
     {
         _customerDomain = customersDomain;
         _mapper = mapper;
+        this.logger = logger;
     }
 
     public Response<bool> Insert(CustomerDTO customerDTO)
@@ -33,10 +35,13 @@ public class CustomerApplication: ICustumerApplication
             {
                 response.IsSuccess = true;
                 response.Message = "Registro Exitoso.";
+
+                logger.LogInformation("Nuevo registro creado.");
             }
         }
         catch (Exception e)
         {
+            logger.LogError(e.Message);
             response.Message = e.Message;
         }
 
@@ -124,10 +129,13 @@ public class CustomerApplication: ICustumerApplication
             {
                 response.IsSuccess = true;
                 response.Message = "Consulta Exitosa.";
+
+                logger.LogInformation("Consulta Exitosa.");
             }
         }
         catch (Exception e)
         {
+            logger.LogError(e.Message);
             response.Message = e.Message;
         }
 

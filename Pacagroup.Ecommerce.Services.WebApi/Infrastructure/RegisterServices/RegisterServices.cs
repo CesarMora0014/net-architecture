@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
+using Pacagroup.Ecommerce.Transversal.Mapper;
 using System.Reflection;
 using System.Text;
 
@@ -9,6 +11,16 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 
 public static class RegisterServices
 {
+    public static void RegisterAutoMapper(this IServiceCollection services)
+    {
+        var mappingConfig = new MapperConfiguration(config =>
+        {
+            config.AddProfile<MappingsProfile>();
+        });
+        IMapper mapper = mappingConfig.CreateMapper();
+        services.AddSingleton(mapper);
+    }
+
     public static void RegisterSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>

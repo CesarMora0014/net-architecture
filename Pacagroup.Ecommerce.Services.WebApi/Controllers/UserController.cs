@@ -13,7 +13,7 @@ using System.Text;
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers;
 
 [Authorize]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class UserController : Controller
 {
@@ -27,7 +27,7 @@ public class UserController : Controller
     }
 
     [AllowAnonymous]
-    [HttpPost]
+    [HttpPost("Authenticate")]
     public IActionResult Authenticate([FromBody] UserDTO userDTO)
     {
         var response = userApplication.Authenticate(userDTO.UserName, userDTO.Password);

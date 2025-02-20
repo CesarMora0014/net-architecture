@@ -36,7 +36,7 @@ public class UserApplication : IUserApplication
         }
         catch(InvalidOperationException)
         {
-            response.IsSuccess = true;
+            response.IsSuccess = false;
             response.Message = "Usuario no existe.";
         }
         catch(Exception ex)

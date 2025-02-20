@@ -6,7 +6,7 @@ using Pacagroup.Ecommerce.Application.Interface;
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers;
 
 [Authorize]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class CustomerController : Controller
 {
@@ -19,8 +19,8 @@ public class CustomerController : Controller
 
     #region Métodos síncronos
 
-    [HttpPost]
-    public IActionResult InsertCustomer([FromBody] CustomerDTO customerDTO)
+    [HttpPost("Insert")]
+    public IActionResult Insert([FromBody] CustomerDTO customerDTO)
     {
         if (customerDTO == null) return BadRequest();
 
@@ -32,8 +32,8 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpPut]
-    public IActionResult UpdateCustomer([FromBody] CustomerDTO customerDTO)
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] CustomerDTO customerDTO)
     {
         if (customerDTO == null) return BadRequest();
 
@@ -45,8 +45,8 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpDelete("{customerId}")]
-    public IActionResult DeleteCustomer(string customerId)
+    [HttpDelete("Delete/{customerId}")]
+    public IActionResult Delete(string customerId)
     {
         if (string.IsNullOrEmpty(customerId)) return BadRequest();
 
@@ -58,8 +58,8 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpGet("{customerId}")]
-    public IActionResult GetCustomer(string customerId)
+    [HttpGet("Get/{customerId}")]
+    public IActionResult Get(string customerId)
     {
         if (string.IsNullOrEmpty(customerId)) return BadRequest();
 
@@ -71,8 +71,8 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpGet]
-    public IActionResult GetAllCustomers()
+    [HttpGet("GetAll")]
+    public IActionResult GetAll()
     {
         var response = _customerApplication.GetAll();
 
@@ -86,7 +86,7 @@ public class CustomerController : Controller
 
     #region Métodos asíncronos
 
-    [HttpPost]
+    [HttpPost("InsertAsync")]
     public async Task<IActionResult> InsertAsync([FromBody] CustomerDTO customerDTO)
     {
         if (customerDTO == null) return BadRequest();
@@ -99,7 +99,7 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpPut]
+    [HttpPut("UpdateAsync")]
     public async Task<IActionResult> UpdateAsync([FromBody] CustomerDTO customerDTO)
     {
         if (customerDTO == null) return BadRequest();
@@ -112,7 +112,7 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpDelete("{customerId}")]
+    [HttpDelete("DeleteAsync/{customerId}")]
     public async Task<IActionResult> DeleteAsync(string customerId)
     {
         if (string.IsNullOrEmpty(customerId)) return BadRequest();
@@ -125,7 +125,7 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpGet("{customerId}")]
+    [HttpGet("GetAsync/{customerId}")]
     public async Task<IActionResult> GetAsync(string customerId)
     {
         if (string.IsNullOrEmpty(customerId)) return BadRequest();
@@ -138,7 +138,7 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpGet]
+    [HttpGet("GetAllAsync")]
     public async Task<IActionResult> GetAllAsync()
     {
         var response = await _customerApplication.GetAllAsync();

@@ -6,6 +6,7 @@ using Pacagroup.Ecommerce.Infraestructure.Data;
 using Pacagroup.Ecommerce.Infraestructure.Interface;
 using Pacagroup.Ecommerce.Infraestructure.Repository;
 using Pacagroup.Ecommerce.Transversal.Common;
+using Pacagroup.Ecommerce.Transversal.Logging;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 
@@ -38,6 +39,8 @@ public static class RegisterLayersServices
     public static IServiceCollection RegisterCommonInterfaces(this IServiceCollection services)
     {
         services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+        services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+
 
         return services;
     }

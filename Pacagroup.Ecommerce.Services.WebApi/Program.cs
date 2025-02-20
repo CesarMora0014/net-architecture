@@ -1,5 +1,3 @@
-using Pacagroup.Ecommerce.Transversal.Mapper;
-using Newtonsoft.Json.Serialization;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 
@@ -11,9 +9,6 @@ var corsPolicy = "policyApiEcommerce";
 
 
 // Add services to the container.
-
-builder.Services.AddAutoMapper(x => x.AddProfile(new MappingsProfile()));
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(corsPolicy,policyBuilder =>
@@ -25,9 +20,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services
-    .AddControllers()
-    .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+builder.Services.AddControllers();
 
 builder.Services
     .RegisterApplicationInterfaces()
@@ -35,6 +28,7 @@ builder.Services
     .RegisterInfrastructureInterfaces()
     .RegisterCommonInterfaces();
 
+builder.Services.RegisterAutoMapper();
 builder.Services.RegisterJwtAuthentication(appSettingSection);
 builder.Services.RegisterSwagger();
 
@@ -46,8 +40,8 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API Ecommerce v1") );
 
 app.UseCors(corsPolicy);
-app.UseAuthentication();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
