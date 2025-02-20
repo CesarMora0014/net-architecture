@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 using System.Reflection;
@@ -119,5 +120,10 @@ public static class RegisterServices
                 ClockSkew = TimeSpan.Zero
             };
         });
+    }
+
+    public static void RegisterValidators(this IServiceCollection services)
+    {
+        services.AddTransient<UsersDTOValidator>();
     }
 }

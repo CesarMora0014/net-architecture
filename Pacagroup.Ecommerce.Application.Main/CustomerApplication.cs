@@ -8,6 +8,7 @@ using Pacagroup.Ecommerce.Domain.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Pacagroup.Ecommerce.Application.Validator.CustomerDTOValidations;
 
 public class CustomerApplication: ICustumerApplication
 {
@@ -25,6 +26,16 @@ public class CustomerApplication: ICustumerApplication
     public Response<bool> Insert(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
+
+        var validation = new InsertCustomerDTOValidator().Validate(customerDTO);
+
+        if (!validation.IsValid)
+        {
+            response.Message = "Errores de validación";
+            response.Errors = validation.Errors;
+            return response;
+        }
+
 
         try
         {
@@ -51,6 +62,16 @@ public class CustomerApplication: ICustumerApplication
     public Response<bool> Update(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
+
+
+        var validation = new UpdateCustomerDTOValidator().Validate(customerDTO);
+
+        if (!validation.IsValid)
+        {
+            response.Message = "Errores de validación";
+            response.Errors = validation.Errors;
+            return response;
+        }
 
         try
         {

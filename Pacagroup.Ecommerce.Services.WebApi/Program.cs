@@ -31,6 +31,7 @@ builder.Services
 builder.Services.RegisterAutoMapper();
 builder.Services.RegisterJwtAuthentication(appSettingSection);
 builder.Services.RegisterSwagger();
+builder.Services.RegisterValidators();
 
 var app = builder.Build();
 

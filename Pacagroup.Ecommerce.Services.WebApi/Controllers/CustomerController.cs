@@ -27,7 +27,7 @@ public class CustomerController : Controller
         var response = _customerApplication.Insert(customerDTO);
 
         if(!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -40,7 +40,7 @@ public class CustomerController : Controller
         var response = _customerApplication.Update(customerDTO);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -53,7 +53,7 @@ public class CustomerController : Controller
         var response = _customerApplication.Delete(customerId);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -66,7 +66,7 @@ public class CustomerController : Controller
         var response = _customerApplication.Get(customerId);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -77,7 +77,7 @@ public class CustomerController : Controller
         var response = _customerApplication.GetAll();
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -94,7 +94,7 @@ public class CustomerController : Controller
         var response = await _customerApplication.InsertAsync(customerDTO);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -107,7 +107,7 @@ public class CustomerController : Controller
         var response = await _customerApplication.UpdateAsync(customerDTO);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -120,7 +120,7 @@ public class CustomerController : Controller
         var response = await _customerApplication.DeleteAsync(customerId);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -133,7 +133,7 @@ public class CustomerController : Controller
         var response = await _customerApplication.GetAsync(customerId);
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }
@@ -144,7 +144,7 @@ public class CustomerController : Controller
         var response = await _customerApplication.GetAllAsync();
 
         if (!response.IsSuccess)
-            return BadRequest(response.Message);
+            return BadRequest(response);
 
         return Ok(response);
     }

@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Packagroup.Ecommerce.Applicaion.DTO\Pacagroup.Ecommerce.Application.DTO.csproj" />
   </ItemGroup>
 
 </Project>

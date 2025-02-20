@@ -35,7 +35,7 @@ public class UserController : Controller
         if (response == null)
             return BadRequest(response);
 
-        if(response.IsSuccess && response.Data == null)
+        if(!response.IsSuccess)
             return NotFound(response);
 
         response.Data.Token = BuildToken(response);
