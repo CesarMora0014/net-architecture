@@ -1,0 +1,13 @@
+Herramientas de visual studio
+
+1.Métricas de código:
+	Ayuda a calcular varios parámetros que nos indican que el código que se esta escribiendo sea el óptimo, para ejecutarlo:  
+		1. Click derecho en el proyecto 
+		2. Seleccionar análisis y limpieza de código
+		3. Calcular métricas de código
+
+
+2.Análisis de cobertura de código (Sólo para versión enterprise):
+	Especifica la cantidad de código cubierto en las pruebas unitarias, para dar mayor visibilidad de que todos los casos de pruebas esten cubiertos, para ejecutarlo:
+		1. Ir a la pestaña de Prueba
+		2. Seleccionar Analizar cobertura de codigo

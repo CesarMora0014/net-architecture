@@ -39,7 +39,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Transversal.Logging", "Pacagroup.Ecommerce.Transversal.Logging\Pacagroup.Ecommerce.Transversal.Logging.csproj", "{AB1FC743-A122-46FA-9145-F44A91D5B415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacagroup.Ecommerce.Application.Validator", "Pacagroup.Ecommerce.Application.Validator\Pacagroup.Ecommerce.Application.Validator.csproj", "{CAF996ED-BE54-4118-A8DD-B193835E1A00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Application.Validator", "Pacagroup.Ecommerce.Application.Validator\Pacagroup.Ecommerce.Application.Validator.csproj", "{CAF996ED-BE54-4118-A8DD-B193835E1A00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Pruebas", "5.Pruebas", "{BE6BA579-97C9-4483-B374-AEE321EC7D31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacagroup.Ecommerce.Application.Test", "Pacagroup.Ecommerce.Application.Test\Pacagroup.Ecommerce.Application.Test.csproj", "{4F18825A-23DA-4F5A-B716-EFC6B906EC1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{4B8EBA51-4DF9-403B-827F-1D6BE5D21325}"
+	ProjectSection(SolutionItems) = preProject
+		Notas.txt = Notas.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +112,10 @@ Global
 		{CAF996ED-BE54-4118-A8DD-B193835E1A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAF996ED-BE54-4118-A8DD-B193835E1A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAF996ED-BE54-4118-A8DD-B193835E1A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +135,7 @@ Global
 		{D72E532F-15D0-4075-8121-4752367128D7} = {3E4E55E7-0B5A-4293-9A46-BBFEA6E2DE01}
 		{AB1FC743-A122-46FA-9145-F44A91D5B415} = {F2CCA2BD-95D1-4F9F-A033-C49F9CA42728}
 		{CAF996ED-BE54-4118-A8DD-B193835E1A00} = {86E58887-2EF0-442A-9F51-F40ABC361E74}
+		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F} = {BE6BA579-97C9-4483-B374-AEE321EC7D31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3F70D25-65FD-4C32-98E5-561647C5E195}
