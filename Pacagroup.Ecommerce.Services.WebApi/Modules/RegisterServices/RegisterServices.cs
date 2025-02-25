@@ -135,4 +135,14 @@ public static class RegisterServices
 
       
     }
+
+    public static void RegisterHealthCheck(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHealthChecks().AddSqlServer(configuration.GetConnectionString("NorthwindConnection"), tags: new[] { "database" });
+        services.AddHealthChecks().AddCheck<HealthChecksCustom>("healthCheckCustom", tags: new[] { "custom" });
+
+        //check more dependencies
+
+        services.AddHealthChecksUI().AddInMemoryStorage();
+    }
 }

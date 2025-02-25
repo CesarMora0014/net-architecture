@@ -1,4 +1,6 @@
 using Asp.Versioning.ApiExplorer;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Pacagroup.Ecommerce.Services.WebApi;
 
 var app = AppBuilder.Build();
@@ -21,5 +23,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecksUI();
+app.MapHealthChecks("/health", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();

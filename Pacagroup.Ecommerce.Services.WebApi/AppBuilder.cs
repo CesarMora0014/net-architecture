@@ -39,6 +39,7 @@ public class AppBuilder
         builder.Services.RegisterAPIVersioning();
         builder.Services.RegisterSwagger();
         builder.Services.RegisterValidators();
+        builder.Services.RegisterHealthCheck(builder.Configuration);
 
         return builder.Build();
     }
