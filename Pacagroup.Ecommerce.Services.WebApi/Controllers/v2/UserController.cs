@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -10,16 +11,17 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers;
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2;
 
 [Authorize]
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
+[ApiVersion("2.0")]
 public class UserController : Controller
 {
     private readonly IUserApplication userApplication;
     private readonly AppSettings appSettings;
-    
+
     public UserController(IUserApplication userApplication, IOptions<AppSettings> appSettings)
     {
         this.userApplication = userApplication;
@@ -35,7 +37,7 @@ public class UserController : Controller
         if (response == null)
             return BadRequest(response);
 
-        if(!response.IsSuccess)
+        if (!response.IsSuccess)
             return NotFound(response);
 
         response.Data.Token = BuildToken(response);
@@ -47,11 +49,12 @@ public class UserController : Controller
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-        var tokenDescriptor = new SecurityTokenDescriptor { 
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
             Subject = new ClaimsIdentity(new Claim[]{
                 new Claim(ClaimTypes.Name, userDTO.Data.UserId.ToString())
             }),
-            Expires = DateTime.UtcNow.AddMinutes(1),
+            Expires = DateTime.UtcNow.AddMinutes(10),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             Issuer = appSettings.Issuer,
             Audience = appSettings.Audience,

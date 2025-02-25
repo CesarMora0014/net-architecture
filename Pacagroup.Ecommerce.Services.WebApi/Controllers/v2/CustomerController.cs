@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers;
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2;
 
 [Authorize]
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
+[ApiVersion("2.0")]
 public class CustomerController : Controller
 {
     private readonly ICustumerApplication _customerApplication;
@@ -26,15 +28,19 @@ public class CustomerController : Controller
 
         var response = _customerApplication.Insert(customerDTO);
 
-        if(!response.IsSuccess)
+        if (!response.IsSuccess)
             return BadRequest(response);
 
         return Ok(response);
     }
 
-    [HttpPut("Update")]
-    public IActionResult Update([FromBody] CustomerDTO customerDTO)
+    [HttpPut("Update/{customerId}")]
+    public IActionResult Update(string customerId, [FromBody] CustomerDTO customerDTO)
     {
+        var responseCustomer = _customerApplication.Get(customerId);
+
+        if (responseCustomer.Data == null) return BadRequest(responseCustomer);
+
         if (customerDTO == null) return BadRequest();
 
         var response = _customerApplication.Update(customerDTO);
@@ -84,6 +90,7 @@ public class CustomerController : Controller
 
     #endregion
 
+
     #region Métodos asíncronos
 
     [HttpPost("InsertAsync")]
@@ -99,9 +106,13 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
-    [HttpPut("UpdateAsync")]
-    public async Task<IActionResult> UpdateAsync([FromBody] CustomerDTO customerDTO)
+    [HttpPut("UpdateAsync/{customerId}")]
+    public async Task<IActionResult> UpdateAsync(string customerId, [FromBody] CustomerDTO customerDTO)
     {
+        var responseCustomer = await _customerApplication.GetAsync(customerId);
+
+        if (responseCustomer.Data == null) return BadRequest(responseCustomer);
+
         if (customerDTO == null) return BadRequest();
 
         var response = await _customerApplication.UpdateAsync(customerDTO);

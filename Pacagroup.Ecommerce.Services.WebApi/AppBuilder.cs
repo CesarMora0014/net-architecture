@@ -36,6 +36,7 @@ public class AppBuilder
 
         builder.Services.RegisterAutoMapper();
         builder.Services.RegisterJwtAuthentication(appSettingSection);
+        builder.Services.RegisterAPIVersioning();
         builder.Services.RegisterSwagger();
         builder.Services.RegisterValidators();
 

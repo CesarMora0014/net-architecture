@@ -1,10 +1,16 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Config;
 using Pacagroup.Ecommerce.Transversal.Mapper;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
 
@@ -24,52 +30,34 @@ public static class RegisterServices
 
     public static void RegisterSwagger(this IServiceCollection services)
     {
+        services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-            {
-                Version = "v1",
-                Title = "Pacagroup Technologies Services API Market",
-                Description = "Simple ASP.NET Core API",
-                TermsOfService = new Uri("http://pacagroup.com"),
-                Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                {
-                    Name = "Cesar Mora",
-                    Email = "cesarmora014@gmail.com",
-                    Url = new Uri("http://pacagroup.com")
-                },
-                License = new Microsoft.OpenApi.Models.OpenApiLicense
-                {
-                    Name = "Use under LICS",
-                    Url = new Uri("http://pacagroup.com")
-                }
-            });
-
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             c.IncludeXmlComments(xmlPath);
 
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            var securityScheme = new OpenApiSecurityScheme
             {
-                Description = "JWT Authorization header using the Bearer scheme.",
-                Type = SecuritySchemeType.Http,
                 Name = "Authorization",
-                Scheme = "Bearer"
-            });
+                Scheme = "Bearer",
+                Type = SecuritySchemeType.Http,
+                In = ParameterLocation.Header,
+                Description = "JWT Authorization header using the Bearer scheme.",
+                BearerFormat = "JWT",
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+
+            c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement 
             {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        },
-                    },
-                    new List<string>()
-                }
+                { securityScheme, new List<string>() }
             });
         });
     }
@@ -125,5 +113,26 @@ public static class RegisterServices
     public static void RegisterValidators(this IServiceCollection services)
     {
         services.AddTransient<UsersDTOValidator>();
+    }
+
+    public static void RegisterAPIVersioning(this IServiceCollection services)
+    {
+        services.AddApiVersioning(o =>
+        {
+            o.DefaultApiVersion = new ApiVersion(1, 0);
+            o.AssumeDefaultVersionWhenUnspecified = true;
+            o.ReportApiVersions = true;
+            //o.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+            //o.ApiVersionReader = new HeaderApiVersionReader("x-version");
+            o.ApiVersionReader = new UrlSegmentApiVersionReader();
+
+        })
+        .AddApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true; //For URLSegmentApiVersionReader
+        });
+
+      
     }
 }
