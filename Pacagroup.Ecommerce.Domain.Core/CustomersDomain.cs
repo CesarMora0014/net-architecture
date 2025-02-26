@@ -8,36 +8,36 @@ using System.Collections.Generic;
 
 public class CustomersDomain: ICustomersDomain
 {
-    private readonly ICustomersRepository customersRepository;
+    private readonly IUnitOfWork unitOfWork;
 
-    public CustomersDomain(ICustomersRepository customersRepository)
+    public CustomersDomain(IUnitOfWork unitOfWork)
     {
-        this.customersRepository = customersRepository;
+        this.unitOfWork = unitOfWork;
     }
 
     #region Métodos Síncronos
     public bool Insert(Customer customer)
     {
-        return customersRepository.Insert(customer);
+        return unitOfWork.Customers.Insert(customer);
     }
 
     public bool Update(Customer customer)
     {
-        return customersRepository.Update(customer);
+        return unitOfWork.Customers.Update(customer);
     }
 
     public bool Delete(string customerId)
     {
-        return customersRepository.Delete(customerId);
+        return unitOfWork.Customers.Delete(customerId);
     }
 
     public Customer Get(string customerId)
     {
-        return customersRepository.Get(customerId);
+        return unitOfWork.Customers.Get(customerId);
     }
     public IEnumerable<Customer> GetAll()
     {
-        return customersRepository.GetAll();
+        return unitOfWork.Customers.GetAll();
     }
 
     #endregion
@@ -45,27 +45,27 @@ public class CustomersDomain: ICustomersDomain
     #region Métodos Asíncronos
     public async Task<bool> InsertAsync(Customer customer)
     {
-        return await customersRepository.InsertAsync(customer);
+        return await unitOfWork.Customers.InsertAsync(customer);
     }
 
     public async Task<bool> UpdateAsync(Customer customer)
     {
-        return await customersRepository.UpdateAsync(customer);
+        return await unitOfWork.Customers.UpdateAsync(customer);
     }
 
     public async Task<bool> DeleteAsync(string customerId)
     {
-        return await customersRepository.DeleteAsync(customerId);
+        return await unitOfWork.Customers.DeleteAsync(customerId);
     }
 
     public async Task<Customer> GetAsync(string customerId)
     {
-        return await customersRepository.GetAsync(customerId);
+        return await unitOfWork.Customers.GetAsync(customerId);
     }
 
     public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-        return await customersRepository.GetAllAsync();
+        return await unitOfWork.Customers.GetAllAsync();
     }
 
     #endregion

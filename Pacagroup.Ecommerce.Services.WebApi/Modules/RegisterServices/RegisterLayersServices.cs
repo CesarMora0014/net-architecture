@@ -33,6 +33,7 @@ public static class RegisterLayersServices
         services.AddSingleton<DapperContext>();
         services.AddScoped<ICustomersRepository, CustomerRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
