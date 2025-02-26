@@ -30,6 +30,7 @@ public static class RegisterLayersServices
 
     public static IServiceCollection RegisterInfrastructureInterfaces(this IServiceCollection services)
     {
+        services.AddSingleton<DapperContext>();
         services.AddScoped<ICustomersRepository, CustomerRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
@@ -38,9 +39,7 @@ public static class RegisterLayersServices
 
     public static IServiceCollection RegisterCommonInterfaces(this IServiceCollection services)
     {
-        services.AddSingleton<IConnectionFactory, ConnectionFactory>();
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-
 
         return services;
     }

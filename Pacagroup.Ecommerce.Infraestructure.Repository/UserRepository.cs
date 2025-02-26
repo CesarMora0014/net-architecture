@@ -1,23 +1,23 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Infraestructure.Data;
 using Pacagroup.Ecommerce.Infraestructure.Interface;
-using Pacagroup.Ecommerce.Transversal.Common;
 using System.Data;
 
 namespace Pacagroup.Ecommerce.Infraestructure.Repository;
 
 public class UserRepository : IUserRepository
 {
-    private IConnectionFactory connectionFactory;
+    private DapperContext context;
 
-    public UserRepository(IConnectionFactory connectionFactory)
+    public UserRepository(DapperContext context)
     {
-        this.connectionFactory = connectionFactory;
+        this.context = context;
     }
 
     public User Authenticate(string username, string password)
     {
-        using (var connection = connectionFactory.GetConnection)
+        using (var connection = context.CreateConnection())
         {
             string query = "UsersGetByUserAndPassword";
             DynamicParameters parameters = new DynamicParameters();
@@ -27,5 +27,55 @@ public class UserRepository : IUserRepository
             var user  = connection.QuerySingle<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
             return user;
         }
+    }
+
+    public bool Delete(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> DeleteAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public User Get(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<User> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<User>> GetAllAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> GetAsync(string id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Insert(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> InsertAsync(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Update(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> UpdateAsync(User entity)
+    {
+        throw new NotImplementedException();
     }
 }

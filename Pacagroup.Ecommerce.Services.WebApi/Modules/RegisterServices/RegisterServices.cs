@@ -1,8 +1,6 @@
 ﻿using Asp.Versioning;
-using Asp.Versioning.ApiExplorer;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
