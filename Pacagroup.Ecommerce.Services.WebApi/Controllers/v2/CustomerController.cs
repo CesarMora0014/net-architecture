@@ -88,6 +88,17 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
+    [HttpGet("GetAllPaginated")]
+    public IActionResult GetAllPaginated([FromQuery] int pageNumber, int pageSize)
+    {
+        var response = _customerApplication.GetAllPaginated(pageNumber, pageSize);
+
+        if (!response.IsSuccess)
+            return BadRequest(response);
+
+        return Ok(response);
+    }
+
     #endregion
 
 
@@ -160,6 +171,16 @@ public class CustomerController : Controller
         return Ok(response);
     }
 
+    [HttpGet("GetAllPaginatedAsync")]
+    public async Task<IActionResult> GetAllPaginatedAsync([FromQuery] int pageNumber, int pageSize)
+    {
+        var response = await _customerApplication.GetAllPaginatedAsync(pageNumber, pageSize);
+
+        if (!response.IsSuccess)
+            return BadRequest(response);
+
+        return Ok(response);
+    }
     #endregion
 
 }

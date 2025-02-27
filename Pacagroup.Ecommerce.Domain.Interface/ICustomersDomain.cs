@@ -16,6 +16,8 @@ public interface ICustomersDomain
     bool Delete(string customerId);
     Customer Get(string customerId);
     IEnumerable<Customer> GetAll();
+    IEnumerable<Customer> GetAllPaginated(int pageNumber, int pageSize);
+    int Count();
     #endregion
 
     #region Métodos Asíncronos
@@ -24,5 +26,7 @@ public interface ICustomersDomain
     Task<bool> DeleteAsync(string customerId);
     Task<Customer> GetAsync(string customerId);
     Task<IEnumerable<Customer>> GetAllAsync();
+    Task<IEnumerable<Customer>> GetAllPaginatedAsync(int pageNumber, int pageSize);
+    Task<int> CountAsync();
     #endregion
 }

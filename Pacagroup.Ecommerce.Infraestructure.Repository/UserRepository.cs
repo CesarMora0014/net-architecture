@@ -29,6 +29,16 @@ public class UserRepository : IUserRepository
         }
     }
 
+    public int Count()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> CountAsync()
+    {
+        throw new NotImplementedException();
+    }
+
     public bool Delete(string id)
     {
         throw new NotImplementedException();
@@ -50,6 +60,16 @@ public class UserRepository : IUserRepository
     }
 
     public Task<IEnumerable<User>> GetAllAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<User> GetAllPaginated(int pageNumber, int pageSize)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<User>> GetAllPaginatedAsync(int pageNumber, int pageSize)
     {
         throw new NotImplementedException();
     }

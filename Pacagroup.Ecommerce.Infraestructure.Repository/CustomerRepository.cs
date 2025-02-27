@@ -102,6 +102,29 @@ public class CustomerRepository: ICustomersRepository
         }
     }
 
+    public IEnumerable<Customer> GetAllPaginated(int pageNumber, int pageSize)
+    {
+        using (var connection = context.CreateConnection())
+        {
+            var query = "CustomersListWithPagination";
+            var parameters = new DynamicParameters();
+            parameters.Add("PageNumber", pageNumber);
+            parameters.Add("PageSize", pageSize);
+
+            var result = connection.Query<Customer>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+            return result;
+        }
+    }
+
+    public int Count()
+    {
+        using var connection = context.CreateConnection();
+        var query = "Select Count(*) from Customers";
+        var count = connection.ExecuteScalar<int>(query, commandType: CommandType.Text);
+
+        return count;
+    }
     #endregion
 
     #region Métodos Asíncronos
@@ -191,6 +214,30 @@ public class CustomerRepository: ICustomersRepository
 
             return customers;
         }
+    }
+
+    public async Task<IEnumerable<Customer>> GetAllPaginatedAsync(int pageNumber, int pageSize)
+    {
+        using (var connection = context.CreateConnection())
+        {
+            var query = "CustomersListWithPagination";
+            var parameters = new DynamicParameters();
+            parameters.Add("PageNumber", pageNumber);
+            parameters.Add("PageSize", pageSize);
+
+            var result = await connection.QueryAsync<Customer>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+            return result;
+        }
+    }
+
+    public async Task<int> CountAsync()
+    {
+        using var connection = context.CreateConnection();
+        var query = "Select Count(*) from Customers";
+        var count = await connection.ExecuteScalarAsync<int>(query, commandType: CommandType.Text);
+
+        return count;
     }
 
     #endregion

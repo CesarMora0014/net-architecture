@@ -9,6 +9,8 @@ public interface IGenericRepository<T> where T: class
     bool Delete(string id);
     T Get(string id);
     IEnumerable<T> GetAll();
+    IEnumerable<T> GetAllPaginated(int pageNumber, int pageSize);
+    int Count();
     #endregion
 
     #region Métodos Asíncronos
@@ -17,5 +19,7 @@ public interface IGenericRepository<T> where T: class
     Task<bool> DeleteAsync(string id);
     Task<T> GetAsync(string id);
     Task<IEnumerable<T>> GetAllAsync();
+    Task<IEnumerable<T>> GetAllPaginatedAsync(int pageNumber, int pageSize);
+    Task<int> CountAsync();
     #endregion
 }

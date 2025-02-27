@@ -163,6 +163,34 @@ public class CustomerApplication: ICustumerApplication
         return response;
     }
 
+    public ResponsePagination<IEnumerable<CustomerDTO>> GetAllPaginated(int pageNumber, int pageSize)
+    {
+        var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
+
+        try
+        {
+            var count = _customerDomain.Count();
+            var customers = _customerDomain.GetAllPaginated(pageNumber, pageSize);
+
+            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+
+            if (response.Data != null)
+            {
+                response.PageNumber = pageNumber;
+                response.TotalPages = (int) Math.Ceiling(count / (double) pageSize);
+                response.TotalCount = count;
+                response.IsSuccess = true;
+                response.Message = "Operación realizada con éxito.";
+            }
+
+        }
+        catch(Exception e)
+        {
+            response.Message = e.Message;
+        }
+
+        return response;
+    }
 
 
     public async Task<Response<bool>> InsertAsync(CustomerDTO customerDTO)
@@ -279,10 +307,32 @@ public class CustomerApplication: ICustumerApplication
         return response;
     }
 
-    
-    
+    public async Task<ResponsePagination<IEnumerable<CustomerDTO>>> GetAllPaginatedAsync(int pageNumber, int pageSize)
+    {
+        var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
 
-    
+        try
+        {
+            var count = await _customerDomain.CountAsync();
+            var customers = await _customerDomain.GetAllPaginatedAsync(pageNumber, pageSize);
 
-    
+            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+
+            if (response.Data != null)
+            {
+                response.PageNumber = pageNumber;
+                response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+                response.TotalCount = count;
+                response.IsSuccess = true;
+                response.Message = "Operación realizada con éxito.";
+            }
+
+        }
+        catch (Exception e)
+        {
+            response.Message = e.Message;
+        }
+
+        return response;
+    }
 }

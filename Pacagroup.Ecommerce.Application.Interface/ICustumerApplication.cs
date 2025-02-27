@@ -12,6 +12,7 @@ public interface ICustumerApplication
     Response<bool> Delete(string customerId);
     Response<CustomerDTO> Get(string customerId);
     Response<IEnumerable<CustomerDTO>> GetAll();
+    ResponsePagination<IEnumerable<CustomerDTO>> GetAllPaginated(int pageNumber, int pageSize);
     #endregion
 
     #region Métodos Asíncronos
@@ -20,5 +21,6 @@ public interface ICustumerApplication
     Task<Response<bool>> DeleteAsync(string customerId);
     Task<Response<CustomerDTO>> GetAsync(string customerId);
     Task<Response<IEnumerable<CustomerDTO>>> GetAllAsync();
+    Task<ResponsePagination<IEnumerable<CustomerDTO>>> GetAllPaginatedAsync(int pageNumber, int pageSize);
     #endregion
 }

@@ -40,6 +40,16 @@ public class CustomersDomain: ICustomersDomain
         return unitOfWork.Customers.GetAll();
     }
 
+    public IEnumerable<Customer> GetAllPaginated(int pageNumber, int pageSize)
+    {
+        return unitOfWork.Customers.GetAllPaginated(pageNumber, pageSize);
+    }
+
+    public int Count()
+    {
+        return unitOfWork.Customers.Count();
+    }
+
     #endregion
 
     #region Métodos Asíncronos
@@ -66,6 +76,16 @@ public class CustomersDomain: ICustomersDomain
     public async Task<IEnumerable<Customer>> GetAllAsync()
     {
         return await unitOfWork.Customers.GetAllAsync();
+    }
+
+    public async Task<IEnumerable<Customer>> GetAllPaginatedAsync(int pageNumber, int pageSize)
+    {
+        return await unitOfWork.Customers.GetAllPaginatedAsync(pageNumber, pageSize);
+    }
+
+    public async Task<int> CountAsync()
+    {
+        return await unitOfWork.Customers.CountAsync();
     }
 
     #endregion
