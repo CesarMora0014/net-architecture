@@ -1,19 +1,20 @@
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Services.WebApi;
 
 namespace Pacagroup.Ecommerce.Application.Test;
 
 [TestClass]
 public class UserApplicationTest
 {
-    public static IServiceScopeFactory scopeFactory;
-
+    public static IServiceScopeFactory scopeFactory = null;
+    public static WebApplicationFactory<Program> webApplicationFactory = null;
+    
     [ClassInitialize]
     public static void Initialize(TestContext _)
     {
-        var app = AppBuilder.Build();
-        scopeFactory = app.Services.GetService<IServiceScopeFactory>();
+        webApplicationFactory = new CustomWebApplicationFactory();
+        scopeFactory = webApplicationFactory.Services.GetService<IServiceScopeFactory>();
     }
 
     [TestMethod]
