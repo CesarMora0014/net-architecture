@@ -40,6 +40,7 @@ public class AppBuilder
         builder.Services.RegisterSwagger();
         builder.Services.RegisterValidators();
         builder.Services.RegisterHealthCheck(builder.Configuration);
+        builder.Services.RegisterWatchDog(builder.Configuration);
 
         return builder.Build();
     }

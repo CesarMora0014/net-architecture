@@ -2,6 +2,7 @@ using Asp.Versioning.ApiExplorer;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Pacagroup.Ecommerce.Services.WebApi;
+using WatchDog;
 
 var app = AppBuilder.Build();
 
@@ -17,6 +18,7 @@ app.UseSwaggerUI(c => {
     }
 });
 
+app.UseWatchDogExceptionLogger();
 app.UseCors("policyApiEcommerce");
 
 app.UseAuthentication();
@@ -29,6 +31,13 @@ app.MapHealthChecks("/health", new HealthCheckOptions()
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
+
+app.UseWatchDog(opt =>
+{
+    opt.WatchPageUsername = app.Configuration["WatchDog:WatchDogPageUserName"];
+    opt.WatchPagePassword = app.Configuration["WatchDog:WatchDogPagePassword"];
+});
+
 
 app.Run();
 
