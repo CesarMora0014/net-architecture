@@ -16,6 +16,7 @@ public static class RegisterLayersServices
     {
         services.AddScoped<ICustumerApplication, CustomerApplication>();
         services.AddScoped<IUserApplication, UserApplication>();
+        services.AddScoped<ICategoriesApplication, CategoriesApplication>();
 
         return services;
     }
@@ -24,6 +25,7 @@ public static class RegisterLayersServices
     {
         services.AddScoped<ICustomersDomain, CustomersDomain>();
         services.AddScoped<IUserDomain, UserDomain>();
+        services.AddScoped<ICategoriesDomain, CategoriesDomain>();
 
         return services;
     }
@@ -33,6 +35,7 @@ public static class RegisterLayersServices
         services.AddSingleton<DapperContext>();
         services.AddScoped<ICustomersRepository, CustomerRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;

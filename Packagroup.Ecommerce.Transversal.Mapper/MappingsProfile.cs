@@ -9,7 +9,8 @@ public class MappingsProfile : Profile
     public MappingsProfile()
     {
         CreateMap<Customer, CustomerDTO>().ReverseMap();
-        CreateMap<User, UserDTO>().ReverseMap();    
+        CreateMap<User, UserDTO>().ReverseMap();
+        CreateMap<Category, CategoryDTO>().ReverseMap();    
 
         // Si los campos son diferentes, se mapean de la siguiente manera
         //CreateMap<Customer, CustomerDTO>()
