@@ -54,7 +54,7 @@ public static class RegisterServices
 
             c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
 
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 { securityScheme, new List<string>() }
             });
@@ -132,14 +132,14 @@ public static class RegisterServices
             options.SubstituteApiVersionInUrl = true; //For URLSegmentApiVersionReader
         });
 
-      
+
     }
 
     public static void RegisterHealthCheck(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHealthChecks().AddSqlServer(configuration.GetConnectionString("NorthwindConnection"), tags: new[] { "database" });
         services.AddHealthChecks().AddCheck<HealthChecksCustom>("healthCheckCustom", tags: new[] { "custom" });
-
+        services.AddHealthChecks().AddRedis(configuration.GetConnectionString("RedisConnection"), tags: new[] { "cache" });
         //check more dependencies
 
         services.AddHealthChecksUI().AddInMemoryStorage();
@@ -153,6 +153,14 @@ public static class RegisterServices
             opt.DbDriverOption = WatchDog.src.Enums.WatchDogDbDriverEnum.MSSQL;
             opt.IsAutoClear = true;
             opt.ClearTimeSchedule = WatchDog.src.Enums.WatchDogAutoClearScheduleEnum.Monthly;
+        });
+    }
+
+    public static void RegisterRedis(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration.GetConnectionString("RedisConnection");
         });
     }
 }

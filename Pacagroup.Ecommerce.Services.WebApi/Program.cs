@@ -20,10 +20,12 @@ app.UseSwaggerUI(c => {
 
 app.UseWatchDogExceptionLogger();
 app.UseCors("policyApiEcommerce");
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints => { });
 app.MapControllers();
 app.MapHealthChecksUI();
 app.MapHealthChecks("/health", new HealthCheckOptions()

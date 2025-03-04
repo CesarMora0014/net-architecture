@@ -41,6 +41,7 @@ public class AppBuilder
         builder.Services.RegisterValidators();
         builder.Services.RegisterHealthCheck(builder.Configuration);
         builder.Services.RegisterWatchDog(builder.Configuration);
+        builder.Services.RegisterRedis(builder.Configuration);
 
         return builder.Build();
     }
