@@ -1,4 +1,6 @@
-﻿using Pacagroup.Ecommerce.Services.WebApi.Helpers;
+﻿using Pacagroup.Ecommerce.Application.UseCases;
+using Pacagroup.Ecommerce.Persistence;
+using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 
 namespace Pacagroup.Ecommerce.Services.WebApi;
@@ -28,10 +30,10 @@ public class AppBuilder
 
         builder.Services.AddControllers();
 
-        builder.Services
-            .RegisterApplicationInterfaces()
-            .RegisterInfrastructureInterfaces()
-            .RegisterCommonInterfaces();
+        builder.Services.RegisterCommonInterfaces();
+
+        builder.Services.AddPersistenceServices();
+        builder.Services.AddApplicationServices();
 
         builder.Services.RegisterAutoMapper();
         builder.Services.RegisterJwtAuthentication(appSettingSection);

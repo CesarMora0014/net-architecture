@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Persistence.Data;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Persistence.Contexts;
 
-namespace Pacagroup.Ecommerce.Persistence.Repository;
+namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
 public class CategoriesRepository : ICategoriesRepository
 {

@@ -2,14 +2,13 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
-using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Text;
 using System.Text.Json;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
 
-namespace Pacagroup.Ecommerce.Application.UseCases;
+namespace Pacagroup.Ecommerce.Application.UseCases.Categories;
 
 public class CategoriesApplication : ICategoriesApplication
 {
@@ -32,7 +31,7 @@ public class CategoriesApplication : ICategoriesApplication
         try
         {
             var redisCategories = await distributedCache.GetAsync(cacheKey);
-            
+
             if (redisCategories is not null)
             {
                 response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDTO>>(redisCategories);
@@ -42,7 +41,7 @@ public class CategoriesApplication : ICategoriesApplication
                 var categories = await unitOfWork.Categories.GetAll();
                 response.Data = mapper.Map<IEnumerable<CategoryDTO>>(categories);
 
-                if(response.Data is not null)
+                if (response.Data is not null)
                 {
                     var serializedCategories = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response.Data));
 

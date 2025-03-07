@@ -1,4 +1,4 @@
-﻿namespace Pacagroup.Ecommerce.Application.UseCases;
+﻿namespace Pacagroup.Ecommerce.Application.UseCases.Customers;
 
 using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Pacagroup.Ecommerce.Application.Validator.CustomerDTOValidations;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
-public class CustomerApplication: ICustumerApplication
+public class CustomerApplication : ICustumerApplication
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper _mapper;
@@ -42,7 +42,7 @@ public class CustomerApplication: ICustumerApplication
             var customer = _mapper.Map<Customer>(customerDTO);
             response.Data = unitOfWork.Customers.Insert(customer);
 
-            if (response.Data ) 
+            if (response.Data)
             {
                 response.IsSuccess = true;
                 response.Message = "Registro Exitoso.";
@@ -91,7 +91,7 @@ public class CustomerApplication: ICustumerApplication
 
         return response;
     }
-    
+
     public Response<bool> Delete(string customerId)
     {
         var response = new Response<bool>();
@@ -177,14 +177,14 @@ public class CustomerApplication: ICustumerApplication
             if (response.Data != null)
             {
                 response.PageNumber = pageNumber;
-                response.TotalPages = (int) Math.Ceiling(count / (double) pageSize);
+                response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
                 response.TotalCount = count;
                 response.IsSuccess = true;
                 response.Message = "Operación realizada con éxito.";
             }
 
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             response.Message = e.Message;
         }
@@ -215,7 +215,7 @@ public class CustomerApplication: ICustumerApplication
 
         return response;
     }
-    
+
     public async Task<Response<bool>> UpdateAsync(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();

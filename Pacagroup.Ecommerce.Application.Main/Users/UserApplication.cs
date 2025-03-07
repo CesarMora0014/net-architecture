@@ -6,7 +6,7 @@ using Pacagroup.Ecommerce.Transversal.Common;
 using FluentValidation.Results;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
-namespace Pacagroup.Ecommerce.Application.UseCases;
+namespace Pacagroup.Ecommerce.Application.UseCases.Users;
 
 public class UserApplication : IUserApplication
 {
@@ -18,7 +18,7 @@ public class UserApplication : IUserApplication
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
-        this.validator = validator; 
+        this.validator = validator;
     }
 
     public Response<UserDTO> Authenticate(string username, string password)
@@ -27,7 +27,7 @@ public class UserApplication : IUserApplication
 
         ValidationResult validation = validator.Validate(new UserDTO { UserName = username, Password = password });
 
-        if(!validation.IsValid)
+        if (!validation.IsValid)
         {
             response.Message = "Errores de validación";
             response.Errors = validation.Errors;
@@ -41,12 +41,12 @@ public class UserApplication : IUserApplication
             response.IsSuccess = true;
             response.Message = "Autenticación exitosa.";
         }
-        catch(InvalidOperationException)
+        catch (InvalidOperationException)
         {
             response.IsSuccess = false;
             response.Message = "Usuario no existe.";
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             response.Message = ex.Message;
         }

@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Persistence.Data;
+using Pacagroup.Ecommerce.Persistence.Contexts;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using System.Data;
 
-namespace Pacagroup.Ecommerce.Persistence.Repository;
+namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
@@ -24,7 +24,7 @@ public class UserRepository : IUserRepository
             parameters.Add("UserName", username);
             parameters.Add("Password", password);
 
-            var user  = connection.QuerySingle<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
+            var user = connection.QuerySingle<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
             return user;
         }
     }

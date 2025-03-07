@@ -2,11 +2,11 @@
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Dapper;
 using System.Data;
-using Pacagroup.Ecommerce.Persistence.Data;
+using Pacagroup.Ecommerce.Persistence.Contexts;
 
-namespace Pacagroup.Ecommerce.Persistence.Repository;
+namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
-public class CustomerRepository: ICustomersRepository
+public class CustomerRepository : ICustomersRepository
 {
     private readonly DapperContext context;
     public CustomerRepository(DapperContext context)
@@ -17,7 +17,7 @@ public class CustomerRepository: ICustomersRepository
     #region Métodos Síncronos
     public bool Insert(Customer customer)
     {
-        using(var connection = context.CreateConnection())
+        using (var connection = context.CreateConnection())
         {
             var query = "CustomersInsert";
             var parameters = new DynamicParameters();
@@ -33,7 +33,7 @@ public class CustomerRepository: ICustomersRepository
             parameters.Add("Phone", customer.Phone);
             parameters.Add("Fax", customer.Fax);
 
-            var result = connection.Execute(query, param:parameters, commandType: CommandType.StoredProcedure);
+            var result = connection.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
 
             return result > 0;
         }
@@ -62,7 +62,7 @@ public class CustomerRepository: ICustomersRepository
             return result > 0;
         }
     }
-    
+
     public bool Delete(string customerId)
     {
         using (var connection = context.CreateConnection())

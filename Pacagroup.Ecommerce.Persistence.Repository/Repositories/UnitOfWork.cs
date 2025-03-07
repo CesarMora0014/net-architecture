@@ -1,6 +1,6 @@
 ﻿using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
-namespace Pacagroup.Ecommerce.Persistence.Repository;
+namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
@@ -17,6 +17,6 @@ public class UnitOfWork : IUnitOfWork
 
     public void Dispose()
     {
-        System.GC.SuppressFinalize(this);
+        GC.SuppressFinalize(this);
     }
 }

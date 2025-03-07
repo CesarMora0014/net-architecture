@@ -42,9 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Transve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Services.WebApp", "Pacagroup.Ecommerce.Services.WebApp\Pacagroup.Ecommerce.Services.WebApp.csproj", "{7E93213E-818B-4755-9F43-2BA6412B5B7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Persistence.Data", "Pacagroup.Ecommerce.Persistence.Data\Pacagroup.Ecommerce.Persistence.Data.csproj", "{DA34273A-4E65-4B70-968A-A6A6D91ABEDD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Persistence.Repository", "Pacagroup.Ecommerce.Persistence.Repository\Pacagroup.Ecommerce.Persistence.Repository.csproj", "{53588585-D831-4EDE-8768-386E38586A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Persistence", "Pacagroup.Ecommerce.Persistence.Repository\Pacagroup.Ecommerce.Persistence.csproj", "{53588585-D831-4EDE-8768-386E38586A7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,10 +94,6 @@ Global
 		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA34273A-4E65-4B70-968A-A6A6D91ABEDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA34273A-4E65-4B70-968A-A6A6D91ABEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA34273A-4E65-4B70-968A-A6A6D91ABEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA34273A-4E65-4B70-968A-A6A6D91ABEDD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53588585-D831-4EDE-8768-386E38586A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53588585-D831-4EDE-8768-386E38586A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53588585-D831-4EDE-8768-386E38586A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -120,7 +114,6 @@ Global
 		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F} = {BE6BA579-97C9-4483-B374-AEE321EC7D31}
 		{865B8089-B895-47C8-8E70-698FB4E4AD65} = {F2CCA2BD-95D1-4F9F-A033-C49F9CA42728}
 		{7E93213E-818B-4755-9F43-2BA6412B5B7A} = {3E4E55E7-0B5A-4293-9A46-BBFEA6E2DE01}
-		{DA34273A-4E65-4B70-968A-A6A6D91ABEDD} = {1A9F520D-2229-4321-A82E-FB3353E6EB71}
 		{53588585-D831-4EDE-8768-386E38586A7D} = {1A9F520D-2229-4321-A82E-FB3353E6EB71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
