@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Infraestructure.Data;
-using Pacagroup.Ecommerce.Infraestructure.Interface;
+using Pacagroup.Ecommerce.Persistence.Data;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using System.Data;
 
-namespace Pacagroup.Ecommerce.Infraestructure.Repository;
+namespace Pacagroup.Ecommerce.Persistence.Repository;
 
 public class UserRepository : IUserRepository
 {

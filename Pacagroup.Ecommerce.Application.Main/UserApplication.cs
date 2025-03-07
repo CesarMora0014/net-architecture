@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Validator;
-using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Transversal.Common;
 using FluentValidation.Results;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
-namespace Pacagroup.Ecommerce.Application.Main;
+namespace Pacagroup.Ecommerce.Application.UseCases;
 
 public class UserApplication : IUserApplication
 {
-    private IUserDomain userDomain;
+    private IUnitOfWork unitOfWork;
     private IMapper mapper;
     private readonly UsersDTOValidator validator;
 
-    public UserApplication(IMapper mapper, IUserDomain userDomain, UsersDTOValidator validator)
+    public UserApplication(IMapper mapper, IUnitOfWork unitOfWork, UsersDTOValidator validator)
     {
-        this.userDomain = userDomain;
+        this.unitOfWork = unitOfWork;
         this.mapper = mapper;
         this.validator = validator; 
     }
@@ -36,7 +36,7 @@ public class UserApplication : IUserApplication
 
         try
         {
-            var user = userDomain.Authenticate(username, password);
+            var user = unitOfWork.Users.Authenticate(username, password);
             response.Data = mapper.Map<UserDTO>(user);
             response.IsSuccess = true;
             response.Message = "Autenticación exitosa.";

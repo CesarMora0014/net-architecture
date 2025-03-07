@@ -1,24 +1,25 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Caching.Distributed;
 using Pacagroup.Ecommerce.Application.DTO;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Domain.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Text;
 using System.Text.Json;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
 
-namespace Pacagroup.Ecommerce.Application.Main;
+namespace Pacagroup.Ecommerce.Application.UseCases;
 
 public class CategoriesApplication : ICategoriesApplication
 {
-    private readonly ICategoriesDomain categoriesDomain;
+    private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
     private readonly IDistributedCache distributedCache;
 
-    public CategoriesApplication(ICategoriesDomain categoriesDomain, IMapper mapper, IDistributedCache distributedCache)
+    public CategoriesApplication(IUnitOfWork unitOfWork, IMapper mapper, IDistributedCache distributedCache)
     {
-        this.categoriesDomain = categoriesDomain;
+        this.unitOfWork = unitOfWork;
         this.mapper = mapper;
         this.distributedCache = distributedCache;
     }
@@ -38,7 +39,7 @@ public class CategoriesApplication : ICategoriesApplication
             }
             else
             {
-                var categories = await categoriesDomain.GetAll();
+                var categories = await unitOfWork.Categories.GetAll();
                 response.Data = mapper.Map<IEnumerable<CategoryDTO>>(categories);
 
                 if(response.Data is not null)

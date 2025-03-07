@@ -30,7 +30,6 @@ public class AppBuilder
 
         builder.Services
             .RegisterApplicationInterfaces()
-            .RegisterDomainInterfaces()
             .RegisterInfrastructureInterfaces()
             .RegisterCommonInterfaces();
 

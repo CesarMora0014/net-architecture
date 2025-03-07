@@ -1,24 +1,24 @@
-﻿namespace Pacagroup.Ecommerce.Application.Main;
+﻿namespace Pacagroup.Ecommerce.Application.UseCases;
 
 using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Pacagroup.Ecommerce.Application.Validator.CustomerDTOValidations;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
 public class CustomerApplication: ICustumerApplication
 {
-    private readonly ICustomersDomain _customerDomain;
+    private readonly IUnitOfWork unitOfWork;
     private readonly IMapper _mapper;
     private readonly IAppLogger<CustomerApplication> logger;
 
-    public CustomerApplication(ICustomersDomain customersDomain, IMapper mapper, IAppLogger<CustomerApplication> logger)
+    public CustomerApplication(IUnitOfWork unitOfWork, IMapper mapper, IAppLogger<CustomerApplication> logger)
     {
-        _customerDomain = customersDomain;
+        this.unitOfWork = unitOfWork;
         _mapper = mapper;
         this.logger = logger;
     }
@@ -40,7 +40,7 @@ public class CustomerApplication: ICustumerApplication
         try
         {
             var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = _customerDomain.Insert(customer);
+            response.Data = unitOfWork.Customers.Insert(customer);
 
             if (response.Data ) 
             {
@@ -76,7 +76,7 @@ public class CustomerApplication: ICustumerApplication
         try
         {
             var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = _customerDomain.Update(customer);
+            response.Data = unitOfWork.Customers.Update(customer);
 
             if (response.Data)
             {
@@ -98,7 +98,7 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            response.Data = _customerDomain.Delete(customerId);
+            response.Data = unitOfWork.Customers.Delete(customerId);
 
             if (response.Data)
             {
@@ -120,7 +120,7 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            var customer = _customerDomain.Get(customerId);
+            var customer = unitOfWork.Customers.Get(customerId);
             response.Data = _mapper.Map<CustomerDTO>(customer);
 
             if (response.Data != null)
@@ -143,7 +143,7 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            var customer = _customerDomain.GetAll();
+            var customer = unitOfWork.Customers.GetAll();
             response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customer);
 
             if (response.Data != null)
@@ -169,8 +169,8 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            var count = _customerDomain.Count();
-            var customers = _customerDomain.GetAllPaginated(pageNumber, pageSize);
+            var count = unitOfWork.Customers.Count();
+            var customers = unitOfWork.Customers.GetAllPaginated(pageNumber, pageSize);
 
             response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
 
@@ -200,7 +200,7 @@ public class CustomerApplication: ICustumerApplication
         try
         {
             var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = await _customerDomain.InsertAsync(customer);
+            response.Data = await unitOfWork.Customers.InsertAsync(customer);
 
             if (response.Data)
             {
@@ -223,7 +223,7 @@ public class CustomerApplication: ICustumerApplication
         try
         {
             var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = await _customerDomain.UpdateAsync(customer);
+            response.Data = await unitOfWork.Customers.UpdateAsync(customer);
 
             if (response.Data)
             {
@@ -245,7 +245,7 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            response.Data = await _customerDomain.DeleteAsync(customerId);
+            response.Data = await unitOfWork.Customers.DeleteAsync(customerId);
 
             if (response.Data)
             {
@@ -267,7 +267,7 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            var customer = await _customerDomain.GetAsync(customerId);
+            var customer = await unitOfWork.Customers.GetAsync(customerId);
             response.Data = _mapper.Map<CustomerDTO>(customer);
 
             if (response.Data != null)
@@ -290,7 +290,7 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            var customer = await _customerDomain.GetAllAsync();
+            var customer = await unitOfWork.Customers.GetAllAsync();
             response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customer);
 
             if (response.Data != null)
@@ -313,8 +313,8 @@ public class CustomerApplication: ICustumerApplication
 
         try
         {
-            var count = await _customerDomain.CountAsync();
-            var customers = await _customerDomain.GetAllPaginatedAsync(pageNumber, pageSize);
+            var count = await unitOfWork.Customers.CountAsync();
+            var customers = await unitOfWork.Customers.GetAllPaginatedAsync(pageNumber, pageSize);
 
             response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
 

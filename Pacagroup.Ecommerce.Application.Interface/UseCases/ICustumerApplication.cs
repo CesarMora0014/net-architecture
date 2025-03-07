@@ -1,4 +1,4 @@
-﻿namespace Pacagroup.Ecommerce.Application.Interface;
+﻿namespace Pacagroup.Ecommerce.Application.Interface.UseCases;
 
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Transversal.Common;
