@@ -48,7 +48,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		Notas.txt = Notas.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacagroup.Ecommerce.Transversal.Logging", "Pacagroup.Ecommerce.Transversal.Logging\Pacagroup.Ecommerce.Transversal.Logging.csproj", "{865B8089-B895-47C8-8E70-698FB4E4AD65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Transversal.Logging", "Pacagroup.Ecommerce.Transversal.Logging\Pacagroup.Ecommerce.Transversal.Logging.csproj", "{865B8089-B895-47C8-8E70-698FB4E4AD65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacagroup.Ecommerce.Services.WebApp", "Pacagroup.Ecommerce.Services.WebApp\Pacagroup.Ecommerce.Services.WebApp.csproj", "{7E93213E-818B-4755-9F43-2BA6412B5B7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +118,10 @@ Global
 		{865B8089-B895-47C8-8E70-698FB4E4AD65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{865B8089-B895-47C8-8E70-698FB4E4AD65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{865B8089-B895-47C8-8E70-698FB4E4AD65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E93213E-818B-4755-9F43-2BA6412B5B7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +142,7 @@ Global
 		{CAF996ED-BE54-4118-A8DD-B193835E1A00} = {86E58887-2EF0-442A-9F51-F40ABC361E74}
 		{4F18825A-23DA-4F5A-B716-EFC6B906EC1F} = {BE6BA579-97C9-4483-B374-AEE321EC7D31}
 		{865B8089-B895-47C8-8E70-698FB4E4AD65} = {F2CCA2BD-95D1-4F9F-A033-C49F9CA42728}
+		{7E93213E-818B-4755-9F43-2BA6412B5B7A} = {3E4E55E7-0B5A-4293-9A46-BBFEA6E2DE01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3F70D25-65FD-4C32-98E5-561647C5E195}

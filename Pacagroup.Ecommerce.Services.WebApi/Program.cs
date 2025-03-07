@@ -25,6 +25,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseRateLimiter();
 app.UseEndpoints(endpoints => { });
 app.MapControllers();
 app.MapHealthChecksUI();

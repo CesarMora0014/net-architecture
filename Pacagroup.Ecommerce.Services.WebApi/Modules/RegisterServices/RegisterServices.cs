@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -161,6 +162,24 @@ public static class RegisterServices
         services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = configuration.GetConnectionString("RedisConnection");
+        });
+    }
+
+    public static void RegisterRateLimiter(this IServiceCollection services, IConfiguration configuration)
+    {
+        var policy = "fixedWindow";
+
+        services.AddRateLimiter(options => {
+            options.AddFixedWindowLimiter(policyName: policy, fixedWindowProperties =>
+            {
+                fixedWindowProperties.PermitLimit = int.Parse(configuration["RateLimiting:PermitLimit"]);
+                fixedWindowProperties.Window = TimeSpan.FromSeconds(int.Parse(configuration["RateLimiting:Window"]));
+                fixedWindowProperties.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+                fixedWindowProperties.QueueLimit = int.Parse(configuration["RateLimiting:QueueLimit"]);
+            });
+
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
         });
     }
 }

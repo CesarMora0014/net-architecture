@@ -42,6 +42,7 @@ public class AppBuilder
         builder.Services.RegisterHealthCheck(builder.Configuration);
         builder.Services.RegisterWatchDog(builder.Configuration);
         builder.Services.RegisterRedis(builder.Configuration);
+        builder.Services.RegisterRateLimiter(builder.Configuration);
 
         return builder.Build();
     }
