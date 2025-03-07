@@ -1,6 +1,0 @@
-@Pacagroup.Ecommerce.Serivces.WebApi_HostAddress = http://localhost:5189
-
-GET {{Pacagroup.Ecommerce.Serivces.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

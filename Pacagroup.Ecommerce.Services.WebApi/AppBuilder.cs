@@ -32,7 +32,7 @@ public class AppBuilder
 
         builder.Services.RegisterCommonInterfaces();
 
-        builder.Services.AddPersistenceServices();
+        builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddApplicationServices();
 
         builder.Services.RegisterAutoMapper();
