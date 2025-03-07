@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pacagroup.Ecommerce.Domain.Entity\Pacagroup.Ecommerce.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Pacagroup.Ecommerce.Domain.Entity\Pacagroup.Ecommerce.Domain.csproj" />
     <ProjectReference Include="..\Packagroup.Ecommerce.Applicaion.DTO\Pacagroup.Ecommerce.Application.DTO.csproj" />
   </ItemGroup>
 

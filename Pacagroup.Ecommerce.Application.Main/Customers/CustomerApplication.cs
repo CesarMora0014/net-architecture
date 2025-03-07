@@ -2,13 +2,13 @@
 
 using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Domain.Entity;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Pacagroup.Ecommerce.Application.Validator.CustomerDTOValidations;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
+using Pacagroup.Ecommerce.Domain.Entities;
 
 public class CustomerApplication : ICustumerApplication
 {

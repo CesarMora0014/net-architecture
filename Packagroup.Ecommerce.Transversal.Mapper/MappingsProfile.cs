@@ -2,7 +2,7 @@
 using AutoMapper;
 
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Domain.Entities;
 
 public class MappingsProfile : Profile
 {
