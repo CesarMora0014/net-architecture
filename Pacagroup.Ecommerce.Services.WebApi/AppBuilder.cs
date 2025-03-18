@@ -35,11 +35,9 @@ public class AppBuilder
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddApplicationServices();
 
-        builder.Services.RegisterAutoMapper();
         builder.Services.RegisterJwtAuthentication(appSettingSection);
         builder.Services.RegisterAPIVersioning();
         builder.Services.RegisterSwagger();
-        builder.Services.RegisterValidators();
         builder.Services.RegisterHealthCheck(builder.Configuration);
         builder.Services.RegisterWatchDog(builder.Configuration);
         builder.Services.RegisterRedis(builder.Configuration);

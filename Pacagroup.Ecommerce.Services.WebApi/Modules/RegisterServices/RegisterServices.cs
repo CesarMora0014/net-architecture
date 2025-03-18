@@ -1,14 +1,11 @@
 ﻿using Asp.Versioning;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Config;
-using Pacagroup.Ecommerce.Transversal.Mapper;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
@@ -18,16 +15,6 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 
 public static class RegisterServices
 {
-    public static void RegisterAutoMapper(this IServiceCollection services)
-    {
-        var mappingConfig = new MapperConfiguration(config =>
-        {
-            config.AddProfile<MappingsProfile>();
-        });
-        IMapper mapper = mappingConfig.CreateMapper();
-        services.AddSingleton(mapper);
-    }
-
     public static void RegisterSwagger(this IServiceCollection services)
     {
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -108,11 +95,6 @@ public static class RegisterServices
                 ClockSkew = TimeSpan.Zero
             };
         });
-    }
-
-    public static void RegisterValidators(this IServiceCollection services)
-    {
-        services.AddTransient<UsersDTOValidator>();
     }
 
     public static void RegisterAPIVersioning(this IServiceCollection services)

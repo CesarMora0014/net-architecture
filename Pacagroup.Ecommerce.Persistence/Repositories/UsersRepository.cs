@@ -6,11 +6,11 @@ using Pacagroup.Ecommerce.Domain.Entities;
 
 namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
-public class UserRepository : IUserRepository
+public class UsersRepository : IUserRepository
 {
     private DapperContext context;
 
-    public UserRepository(DapperContext context)
+    public UsersRepository(DapperContext context)
     {
         this.context = context;
     }

@@ -6,10 +6,10 @@ using Pacagroup.Ecommerce.Domain.Entities;
 
 namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
-public class CustomerRepository : ICustomersRepository
+public class CustomersRepository : ICustomersRepository
 {
     private readonly DapperContext context;
-    public CustomerRepository(DapperContext context)
+    public CustomersRepository(DapperContext context)
     {
         this.context = context;
     }

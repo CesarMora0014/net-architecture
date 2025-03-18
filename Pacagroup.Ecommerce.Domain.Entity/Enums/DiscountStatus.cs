@@ -1,7 +1,7 @@
 ﻿
 namespace Pacagroup.Ecommerce.Domain.Enums;
 
-public enum DiscountEstatus
+public enum DiscountStatus
 {
     Inactive = 0,
     Active = 1

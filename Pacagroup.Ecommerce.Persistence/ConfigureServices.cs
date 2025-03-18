@@ -25,9 +25,10 @@ public static class ConfigureServices
 
         });
 
-        services.AddScoped<ICustomersRepository, CustomerRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICustomersRepository, CustomersRepository>();
+        services.AddScoped<IUserRepository, UsersRepository>();
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+        services.AddScoped<IDiscountsRepository, DiscountRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
