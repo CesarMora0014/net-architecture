@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
+using Pacagroup.Ecommerce.Application.Interface.Infrastructure;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Domain.Entities;
+using Pacagroup.Ecommerce.Domain.Events;
 using Pacagroup.Ecommerce.Transversal.Common;
 
 namespace Pacagroup.Ecommerce.Application.UseCases.Discounts;
@@ -13,12 +15,13 @@ public class DiscountApplication : IDiscountApplication
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
     private readonly DiscountDTOValidator discountDTOValidator;
-
-    public DiscountApplication(IUnitOfWork unitOfWork, IMapper mapper, DiscountDTOValidator discountDTOValidator)
+    private readonly IEventBus eventBus;
+    public DiscountApplication(IUnitOfWork unitOfWork, IMapper mapper, DiscountDTOValidator discountDTOValidator, IEventBus eventBus)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
         this.discountDTOValidator = discountDTOValidator;
+        this.eventBus = eventBus;
     }
 
     public async Task<Response<bool>> Create(DiscountDTO discountDTO, CancellationToken cancellationToken = default)
@@ -44,6 +47,10 @@ public class DiscountApplication : IDiscountApplication
             {
                 response.IsSuccess = true;
                 response.Message = "Registro exitoso.";
+
+                //Creación del evento
+                var discountCreatedEvent = mapper.Map<DiscountCreatedEvent>(discount);
+                eventBus.Publish(discountCreatedEvent);
             }
         }
         catch(Exception ex)
