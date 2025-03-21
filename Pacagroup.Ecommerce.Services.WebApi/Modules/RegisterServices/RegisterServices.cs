@@ -15,6 +15,27 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 
 public static class RegisterServices
 {
+    public static void RegisterAPIVersioning(this IServiceCollection services)
+    {
+        services.AddApiVersioning(o =>
+        {
+            o.DefaultApiVersion = new ApiVersion(1, 0);
+            o.AssumeDefaultVersionWhenUnspecified = true;
+            o.ReportApiVersions = true;
+            //o.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+            //o.ApiVersionReader = new HeaderApiVersionReader("x-version");
+            o.ApiVersionReader = new UrlSegmentApiVersionReader();
+
+        })
+        .AddApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true; //For URLSegmentApiVersionReader
+        });
+
+
+    }
+
     public static void RegisterSwagger(this IServiceCollection services)
     {
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -97,26 +118,7 @@ public static class RegisterServices
         });
     }
 
-    public static void RegisterAPIVersioning(this IServiceCollection services)
-    {
-        services.AddApiVersioning(o =>
-        {
-            o.DefaultApiVersion = new ApiVersion(1, 0);
-            o.AssumeDefaultVersionWhenUnspecified = true;
-            o.ReportApiVersions = true;
-            //o.ApiVersionReader = new QueryStringApiVersionReader("api-version");
-            //o.ApiVersionReader = new HeaderApiVersionReader("x-version");
-            o.ApiVersionReader = new UrlSegmentApiVersionReader();
-
-        })
-        .AddApiExplorer(options =>
-        {
-            options.GroupNameFormat = "'v'VVV";
-            options.SubstituteApiVersionInUrl = true; //For URLSegmentApiVersionReader
-        });
-
-
-    }
+    
 
     public static void RegisterHealthCheck(this IServiceCollection services, IConfiguration configuration)
     {

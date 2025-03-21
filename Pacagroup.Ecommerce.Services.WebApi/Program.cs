@@ -53,13 +53,22 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseSwagger();
 
 var apiVersionProvider = app.Services.GetService<IApiVersionDescriptionProvider>();
+app.UseSwagger();
 app.UseSwaggerUI(c => {
     foreach(var description in apiVersionProvider.ApiVersionDescriptions)
     {
         c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"My API Ecommerce {description.GroupName.ToUpperInvariant()}");
+    }
+});
+
+app.UseReDoc(options =>
+{
+    foreach (var description in apiVersionProvider.ApiVersionDescriptions)
+    {
+        options.DocumentTitle = "Pacagroup Technology Services API Market";
+        options.SpecUrl = $"/swagger/{description.GroupName}/swagger.json";
     }
 });
 
