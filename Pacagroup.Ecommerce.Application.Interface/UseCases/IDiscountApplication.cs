@@ -10,4 +10,5 @@ public interface IDiscountApplication
     Task<Response<bool>> Delete(int id, CancellationToken cancellationToken = default);
     Task<Response<DiscountDTO>> Get(int id, CancellationToken cancellationToken = default);
     Task<Response<List<DiscountDTO>>> GetAll(CancellationToken cancellationToken = default);
+    Task<ResponsePagination<IEnumerable<DiscountDTO>>> GetAllWithPagination(int pageNumber, int pageSize);
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bogus;
+using Microsoft.EntityFrameworkCore;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Persistence.Contexts;
+using Pacagroup.Ecommerce.Persistence.Mocks;
 
 namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
@@ -101,9 +103,9 @@ public class DiscountRepository : IDiscountsRepository
             .SingleOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
     }
 
-    public Task<int> CountAsync()
+    public async Task<int> CountAsync()
     {
-        throw new NotImplementedException();
+        return await Task.Run(() => 1000);
     }    
 
     public Task<IEnumerable<Discount>> GetAllAsync()
@@ -111,9 +113,12 @@ public class DiscountRepository : IDiscountsRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Discount>> GetAllPaginatedAsync(int pageNumber, int pageSize)
+    public async Task<IEnumerable<Discount>> GetAllPaginatedAsync(int pageNumber, int pageSize)
     {
-        throw new NotImplementedException();
+        var faker = new DiscountGetAllWithPaginationAsyncBogusConfig();
+        var result = await Task.Run(() => faker.Generate(1000));
+
+        return result.Skip((pageNumber - 1) * pageSize).Take(pageSize);
     }
 
     public Task<Discount> GetAsync(string id)
