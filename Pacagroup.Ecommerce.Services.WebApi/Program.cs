@@ -1,7 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using WatchDog;
 using Pacagroup.Ecommerce.Application.UseCases;
 using Pacagroup.Ecommerce.Persistence;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
@@ -41,7 +40,6 @@ builder.Services.RegisterJwtAuthentication(appSettingSection);
 builder.Services.RegisterAPIVersioning();
 builder.Services.RegisterSwagger();
 builder.Services.RegisterHealthCheck(builder.Configuration);
-builder.Services.RegisterWatchDog(builder.Configuration);
 builder.Services.RegisterRedis(builder.Configuration);
 builder.Services.RegisterRateLimiter(builder.Configuration);
 
@@ -72,15 +70,12 @@ app.UseReDoc(options =>
     }
 });
 
-app.UseWatchDogExceptionLogger();
 app.UseCors("policyApiEcommerce");
-app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseRateLimiter();
-app.UseEndpoints(endpoints => { });
 app.MapControllers();
 app.MapHealthChecksUI();
 app.MapHealthChecks("/health", new HealthCheckOptions()
@@ -88,13 +83,6 @@ app.MapHealthChecks("/health", new HealthCheckOptions()
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-
-app.UseWatchDog(opt =>
-{
-    opt.WatchPageUsername = app.Configuration["WatchDog:WatchDogPageUserName"];
-    opt.WatchPagePassword = app.Configuration["WatchDog:WatchDogPagePassword"];
-});
-
 
 app.Run();
 
