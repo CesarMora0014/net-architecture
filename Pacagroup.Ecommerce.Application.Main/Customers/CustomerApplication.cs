@@ -36,24 +36,15 @@ public class CustomerApplication : ICustumerApplication
             return response;
         }
 
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = unitOfWork.Customers.Insert(customer);
 
-        try
+        if (response.Data)
         {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = unitOfWork.Customers.Insert(customer);
+            response.IsSuccess = true;
+            response.Message = "Registro Exitoso.";
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Registro Exitoso.";
-
-                logger.LogInformation("Nuevo registro creado.");
-            }
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e.Message);
-            response.Message = e.Message;
+            logger.LogInformation("Nuevo registro creado.");
         }
 
         return response;
@@ -73,20 +64,13 @@ public class CustomerApplication : ICustumerApplication
             return response;
         }
 
-        try
-        {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = unitOfWork.Customers.Update(customer);
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = unitOfWork.Customers.Update(customer);
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Actualización Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Actualización Exitosa.";
         }
 
         return response;
@@ -96,19 +80,12 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<bool>();
 
-        try
-        {
-            response.Data = unitOfWork.Customers.Delete(customerId);
+        response.Data = unitOfWork.Customers.Delete(customerId);
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Eliminación Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Eliminación Exitosa.";
         }
 
         return response;
@@ -118,20 +95,13 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<CustomerDTO>();
 
-        try
-        {
-            var customer = unitOfWork.Customers.Get(customerId);
-            response.Data = _mapper.Map<CustomerDTO>(customer);
+        var customer = unitOfWork.Customers.Get(customerId);
+        response.Data = _mapper.Map<CustomerDTO>(customer);
 
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "Consulta Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data != null)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Consulta Exitosa.";
         }
 
         return response;
@@ -141,23 +111,15 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<IEnumerable<CustomerDTO>>();
 
-        try
-        {
-            var customer = unitOfWork.Customers.GetAll();
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customer);
+        var customer = unitOfWork.Customers.GetAll();
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customer);
 
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "Consulta Exitosa.";
-
-                logger.LogInformation("Consulta Exitosa.");
-            }
-        }
-        catch (Exception e)
+        if (response.Data != null)
         {
-            logger.LogError(e.Message);
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Consulta Exitosa.";
+
+            logger.LogInformation("Consulta Exitosa.");
         }
 
         return response;
@@ -167,26 +129,18 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
 
-        try
+        var count = unitOfWork.Customers.Count();
+        var customers = unitOfWork.Customers.GetAllPaginated(pageNumber, pageSize);
+
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+
+        if (response.Data != null)
         {
-            var count = unitOfWork.Customers.Count();
-            var customers = unitOfWork.Customers.GetAllPaginated(pageNumber, pageSize);
-
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
-
-            if (response.Data != null)
-            {
-                response.PageNumber = pageNumber;
-                response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-                response.TotalCount = count;
-                response.IsSuccess = true;
-                response.Message = "Operación realizada con éxito.";
-            }
-
-        }
-        catch (Exception e)
-        {
-            response.Message = e.Message;
+            response.PageNumber = pageNumber;
+            response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            response.TotalCount = count;
+            response.IsSuccess = true;
+            response.Message = "Operación realizada con éxito.";
         }
 
         return response;
@@ -197,20 +151,13 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<bool>();
 
-        try
-        {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = await unitOfWork.Customers.InsertAsync(customer);
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = await unitOfWork.Customers.InsertAsync(customer);
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Registro Exitoso.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Registro Exitoso.";
         }
 
         return response;
@@ -220,20 +167,13 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<bool>();
 
-        try
-        {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = await unitOfWork.Customers.UpdateAsync(customer);
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = await unitOfWork.Customers.UpdateAsync(customer);
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Actualización Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Actualización Exitosa.";
         }
 
         return response;
@@ -243,19 +183,12 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<bool>();
 
-        try
-        {
-            response.Data = await unitOfWork.Customers.DeleteAsync(customerId);
+        response.Data = await unitOfWork.Customers.DeleteAsync(customerId);
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Eliminación Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Eliminación Exitosa.";
         }
 
         return response;
@@ -265,20 +198,13 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<CustomerDTO>();
 
-        try
-        {
-            var customer = await unitOfWork.Customers.GetAsync(customerId);
-            response.Data = _mapper.Map<CustomerDTO>(customer);
+        var customer = await unitOfWork.Customers.GetAsync(customerId);
+        response.Data = _mapper.Map<CustomerDTO>(customer);
 
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "Consulta Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data != null)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Consulta Exitosa.";
         }
 
         return response;
@@ -288,20 +214,13 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new Response<IEnumerable<CustomerDTO>>();
 
-        try
-        {
-            var customer = await unitOfWork.Customers.GetAllAsync();
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customer);
+        var customer = await unitOfWork.Customers.GetAllAsync();
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customer);
 
-            if (response.Data != null)
-            {
-                response.IsSuccess = true;
-                response.Message = "Consulta Exitosa.";
-            }
-        }
-        catch (Exception e)
+        if (response.Data != null)
         {
-            response.Message = e.Message;
+            response.IsSuccess = true;
+            response.Message = "Consulta Exitosa.";
         }
 
         return response;
@@ -311,26 +230,18 @@ public class CustomerApplication : ICustumerApplication
     {
         var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
 
-        try
+        var count = await unitOfWork.Customers.CountAsync();
+        var customers = await unitOfWork.Customers.GetAllPaginatedAsync(pageNumber, pageSize);
+
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+
+        if (response.Data != null)
         {
-            var count = await unitOfWork.Customers.CountAsync();
-            var customers = await unitOfWork.Customers.GetAllPaginatedAsync(pageNumber, pageSize);
-
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
-
-            if (response.Data != null)
-            {
-                response.PageNumber = pageNumber;
-                response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-                response.TotalCount = count;
-                response.IsSuccess = true;
-                response.Message = "Operación realizada con éxito.";
-            }
-
-        }
-        catch (Exception e)
-        {
-            response.Message = e.Message;
+            response.PageNumber = pageNumber;
+            response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            response.TotalCount = count;
+            response.IsSuccess = true;
+            response.Message = "Operación realizada con éxito.";
         }
 
         return response;

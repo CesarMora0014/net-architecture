@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Config;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.GlobalException;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
@@ -151,5 +152,10 @@ public static class RegisterServices
             options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
         });
+    }
+
+    public static void RegisterMiddlewares(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<GlobalExceptionHandler>();
     }
 }

@@ -84,6 +84,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions()
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
+app.RegisterMiddlewares();
+
 app.Run();
 
 public partial class Program { };
