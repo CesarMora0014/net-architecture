@@ -6,17 +6,17 @@ using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Pacagroup.Ecommerce.Application.Validator.CustomerDTOValidations;
 using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 public class CustomerApplication : ICustumerApplication
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper _mapper;
-    private readonly IAppLogger<CustomerApplication> logger;
+    private readonly ILogger<CustomerApplication> logger;
 
-    public CustomerApplication(IUnitOfWork unitOfWork, IMapper mapper, IAppLogger<CustomerApplication> logger)
+    public CustomerApplication(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CustomerApplication> logger)
     {
         this.unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -26,15 +26,6 @@ public class CustomerApplication : ICustumerApplication
     public Response<bool> Insert(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
-
-        var validation = new InsertCustomerDTOValidator().Validate(customerDTO);
-
-        if (!validation.IsValid)
-        {
-            response.Message = "Errores de validación";
-            response.Errors = validation.Errors;
-            return response;
-        }
 
         var customer = _mapper.Map<Customer>(customerDTO);
         response.Data = unitOfWork.Customers.Insert(customer);
@@ -53,16 +44,6 @@ public class CustomerApplication : ICustumerApplication
     public Response<bool> Update(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
-
-
-        var validation = new UpdateCustomerDTOValidator().Validate(customerDTO);
-
-        if (!validation.IsValid)
-        {
-            response.Message = "Errores de validación";
-            response.Errors = validation.Errors;
-            return response;
-        }
 
         var customer = _mapper.Map<Customer>(customerDTO);
         response.Data = unitOfWork.Customers.Update(customer);

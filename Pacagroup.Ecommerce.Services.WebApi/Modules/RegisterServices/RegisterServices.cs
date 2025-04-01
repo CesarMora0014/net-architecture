@@ -125,7 +125,7 @@ public static class RegisterServices
         services.AddHealthChecks().AddRedis(configuration.GetConnectionString("RedisConnection"), tags: new[] { "cache" });
         //check more dependencies
 
-        services.AddHealthChecksUI().AddInMemoryStorage();
+        services.AddHealthChecksUI().AddSqlServerStorage(configuration.GetConnectionString("NorthwindConnection"));
     }
 
     public static void RegisterRedis(this IServiceCollection services, IConfiguration configuration)

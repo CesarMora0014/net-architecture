@@ -1,4 +1,5 @@
 ﻿
+using Pacagroup.Ecommerce.Application.UseCases.Common.Exceptions;
 using Pacagroup.Ecommerce.Transversal.Common;
 using System.Net;
 using System.Text.Json;
@@ -20,6 +21,15 @@ public class GlobalExceptionHandler : IMiddleware
         {
             await next(context);
         }
+        catch (ValidationExceptionCustom ex)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            var response = new Response<Object>() { Message = "Errores de validación", Errors = ex.Errors };
+
+            await JsonSerializer.SerializeAsync(context.Response.Body, response);
+        }
         catch (Exception ex)
         {
             string message = ex.Message.ToString();
@@ -34,5 +44,6 @@ public class GlobalExceptionHandler : IMiddleware
 
             await JsonSerializer.SerializeAsync(context.Response.Body, response);
         }
+        
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Pacagroup.Ecommerce.Application.DTO;
+using Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.CreateCustomerCommand;
+using Pacagroup.Ecommerce.Application.UseCases.Customers.Commands.UpdateCustomerCommand;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Domain.Events;
 
@@ -12,7 +14,11 @@ public class MappingsProfile : Profile
         CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<Category, CategoryDTO>().ReverseMap();
         CreateMap<Discount, DiscountDTO>().ReverseMap();
-        CreateMap<Discount, DiscountCreatedEvent>().ReverseMap();    
+        CreateMap<Discount, DiscountCreatedEvent>().ReverseMap();
+
+
+        CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
+        CreateMap<Customer, UpdateCustomerCommand>().ReverseMap();
 
         // Si los campos son diferentes, se mapean de la siguiente manera
         //CreateMap<Customer, CustomerDTO>()
