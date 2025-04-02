@@ -7,6 +7,7 @@ using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Services.WebApi.Infrastructure.RegisterServices;
 using System.Text.Json.Serialization;
 using Pacagroup.Ecommerce.Infrastructure;
+using Microsoft.AspNetCore.Http.Timeouts;
 
 var builder = WebApplication.CreateBuilder(args);
 var appSettingSection = builder.Configuration.GetSection("Config");
@@ -30,6 +31,12 @@ builder.Services.AddControllers().AddJsonOptions(opts =>
 {
     var enumConverter = new JsonStringEnumConverter();
     opts.JsonSerializerOptions.Converters.Add(enumConverter);
+});
+
+builder.Services.AddRequestTimeouts(options =>
+{
+    options.DefaultPolicy = new RequestTimeoutPolicy { Timeout = TimeSpan.FromSeconds(1.5) };
+    options.AddPolicy("CustomPolicy", TimeSpan.FromSeconds(2));
 });
 
 builder.Services.RegisterCommonInterfaces();
@@ -71,11 +78,10 @@ app.UseReDoc(options =>
 });
 
 app.UseCors("policyApiEcommerce");
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseRateLimiter();
+app.UseRequestTimeouts();
 app.MapControllers();
 app.MapHealthChecksUI();
 app.MapHealthChecks("/health", new HealthCheckOptions()
