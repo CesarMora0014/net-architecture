@@ -23,6 +23,7 @@ public static class ConfigureServices
 
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LogginBehaviour<,>));
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
 
         });
 

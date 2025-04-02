@@ -77,6 +77,8 @@ public static class RegisterServices
         var issuer = settings.Issuer;
         var audience = settings.Audience;
 
+        services.AddHttpContextAccessor();
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -95,7 +97,7 @@ public static class RegisterServices
                 {
                     if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                     {
-                        context.Response.Headers.Add("Token-Expired", "true");
+                        context.Response.Headers.Append("Token-Expired", "true");
                     }
 
                     return Task.CompletedTask;
